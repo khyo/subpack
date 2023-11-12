@@ -84,7 +84,7 @@ class StLink(Package):
     """ tested on 11/11/2023 """
     def __init__(self):
         self.version = "v1.0.0"
-        super().__init__(f"stlink_{self.version}", Path("STMCubeProgrammer", "bin", "STM32_Programmer_CLI"))
+        super().__init__(f"stlink_{self.version}", Path("STM32CubeProgrammer", "bin", "STM32_Programmer_CLI"))
         self.drill_singleton_dirs = True
         
     def install(self):
