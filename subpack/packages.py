@@ -1,7 +1,9 @@
+from pathlib import Path
 import subprocess
 import os
 
 import logging
+from typing import Optional
 
 from .package import *
 
@@ -33,3 +35,58 @@ class Zig(Package):
         archive_type = "tar.xz" if self.IS_POSIX else "zip"
         archive_url = f"https://ziglang.org/builds/zig-{os_name}-{arch}-{self.version}.{archive_type}"
         self.download_extract(archive_url, archive_type)
+
+
+class GccArmNone(Package):
+    """ tested on 11/11/2023 """
+    def __init__(self):
+        self.version = "13.2"
+        self.prefix = "arm-none-eabi-"
+        super().__init__(f"gcc-arm-none-eabi_{self.version}", Path("bin", self.prefix+"gcc"), add_path="bin")
+        self.drill_singleton_dirs = True
+        
+    def install(self):
+        archive_type = "tar.xz"
+        archive_url = f"https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz?rev=e434b9ea4afc4ed7998329566b764309&hash=688C370BF08399033CA9DE3C1CC8CF8E31D8C441"
+        self.download_extract(archive_url, archive_type)
+
+
+class GccArmLinux(Package):
+    """ tested on 11/11/2023 """
+    def __init__(self):
+        self.version = "13.2"
+        self.prefix = "arm-none-linux-"
+        super().__init__(f"gcc-arm-linux-gnueabihf_{self.version}", Path("bin", self.prefix+"gcc"), add_path="bin")
+        self.drill_singleton_dirs = True
+        
+    def install(self):
+        archive_type = "tar.xz"
+        archive_url = f"https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-linux-gnueabihf.tar.xz?rev=adb0c0238c934aeeaa12c09609c5e6fc&hash=68DA67DE12CBAD82A0FA4B75247E866155C93053"
+        self.download_extract(archive_url, archive_type)
+
+
+class TiPruNone(Package):
+    """ tested on 11/11/2023 """
+    def __init__(self):
+        self.version = "2.3.3"
+        super().__init__(f"ti-pru-none_{self.version}", Path("bin", "clpru"))
+        self.drill_singleton_dirs = True
+        
+    def install(self):
+        archive_type = "tar.bz2"
+        archive_url = f"https://subinitial.com/public/art/ti-cgt-pru_2.3.3.tar.bz2"
+        self.download_extract(archive_url, archive_type)
+
+
+class StLink(Package):
+    """ tested on 11/11/2023 """
+    def __init__(self):
+        self.version = "v1.0.0"
+        super().__init__(f"stlink_{self.version}", Path("STM32CubeProgrammer", "bin", "STM32_Programmer_CLI"))
+        self.drill_singleton_dirs = True
+        
+    def install(self):
+        archive_type = "tar.bz2"
+        archive_url = f"https://subinitial.com/public/art/stlink_{self.version}.tar.bz2"
+        self.download_extract(archive_url, archive_type)
+        sh(f"/bin/bash {self.path.joinpath('install.sh')}", cwd=self.path)

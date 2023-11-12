@@ -18,6 +18,9 @@ def main():
     sparser = subparsers.add_parser('remove', help='remove package')
     sparser.set_defaults(func=remove)
     sparser.add_argument("packages", nargs="*")
+    
+    sparser = subparsers.add_parser('update', help='pull latest subpack git repo')
+    sparser.set_defaults(func=update)
 
     args = parser.parse_args()
 
@@ -27,6 +30,10 @@ def main():
     if args.func:
         args.func(args)
 
+
+def update(args):
+    libdir = Path(__file__).parent.parent
+    sh("git pull", cwd=libdir)
 
 def install(args):
     packages = get_packages()
