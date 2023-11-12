@@ -49,6 +49,7 @@ class GccArmNone(Package):
         archive_type = "tar.xz"
         archive_url = f"https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz?rev=e434b9ea4afc4ed7998329566b764309&hash=688C370BF08399033CA9DE3C1CC8CF8E31D8C441"
         self.download_extract(archive_url, archive_type)
+        sh("sudo add-apt-repository -y ppa:deadsnakes/ppa && sudo apt -y install python3.8")
 
 
 class GccArmLinux(Package):
