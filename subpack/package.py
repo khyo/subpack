@@ -67,7 +67,7 @@ class Package:
         symbo.unlink(missing_ok=True)
         sh("ln -sf {0} {1}".format(self.path.absolute(), symbo.absolute()))
         
-        env.append(f'export PATH=$PATH:"{symbo.joinpath(self.add_path).absolute()}"  {tag}')
+        env.append(f'export PATH=$PATH:"{symbo.joinpath(self.add_path).absolute()}"  {tag}\n')
 
         with open(envfile, mode="w") as f:
             f.writelines(env)
@@ -155,6 +155,8 @@ class Package:
         listing = os.listdir(p)
         while len(listing) == 1:
             singleton = listing[0]
+            if not os.path.isdir(p.joinpath(singleton)):
+                break
             self.print(f"drilling: {singleton}")
             for f in os.listdir(p.joinpath(singleton)):
                 print(f"\tmv {f} ..")

@@ -82,7 +82,7 @@ class StLink(Package):
     """ tested on 11/11/2023 """
     def __init__(self):
         self.version = "v1.0.0"
-        super().__init__(f"stlink_{self.version}", Path("STM32CubeProgrammer", "bin", "STM32_Programmer_CLI"))
+        super().__init__(f"stlink_{self.version}", Path("STMCubeProgrammer", "bin", "STM32_Programmer_CLI"))
         self.drill_singleton_dirs = True
         
     def install(self):
@@ -90,3 +90,16 @@ class StLink(Package):
         archive_url = f"https://subinitial.com/public/art/stlink_{self.version}.tar.bz2"
         self.download_extract(archive_url, archive_type)
         sh(f"/bin/bash {self.path.joinpath('install.sh')}", cwd=self.path)
+
+
+class Bun(Package):
+    """ tested on 11/11/2023 """
+    def __init__(self, version="v1.0.11"):
+        self.version = "v" + version.lower().strip("v")
+        super().__init__(f"bun_{self.version}", Path("bun"), add_path=".")
+        self.drill_singleton_dirs = True
+        
+    def install(self):
+        archive_type = "zip"
+        archive_url = f"https://github.com/oven-sh/bun/releases/download/bun-{self.version}/bun-linux-x64.zip"
+        self.download_extract(archive_url, archive_type)
