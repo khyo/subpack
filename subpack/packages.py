@@ -12,7 +12,8 @@ logger = logging.getLogger(__name__)
 
 class Electron(Package):
     """ tested on 11/11/2023 """
-    def __init__(self, version="27.0.2") -> None:
+    DEFAULT_VERSION = "27.0.2"
+    def __init__(self, version=DEFAULT_VERSION) -> None:
         self.version = "v" + version.lower().strip("v")
         super().__init__(f'electron-{self.version}', "electron" + self.EXE)
         
