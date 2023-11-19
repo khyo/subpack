@@ -21,6 +21,10 @@ def main():
     
     sparser = subparsers.add_parser('update', help='pull latest subpack git repo')
     sparser.set_defaults(func=update)
+    
+    sparser = subparsers.add_parser('pwd', help='print working directory [store|lib]')
+    sparser.add_argument('dir', help='destination to print: store=default|lib', nargs='?', default="store")
+    sparser.set_defaults(func=cd)
 
     args = parser.parse_args()
 
@@ -30,6 +34,15 @@ def main():
     if args.func:
         args.func(args)
 
+def cd(args):
+    if args.dir == "store":
+        d = subpack.Package.SUBPACK_DIR    
+    elif args.dir == "lib":
+        d = Path(__file__).parent.parent
+    else:
+        print("unknown directory: ", args.dir)
+        return
+    print(d)
 
 def update(args):
     libdir = Path(__file__).parent.parent

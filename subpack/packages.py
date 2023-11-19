@@ -96,8 +96,8 @@ class StLink(Package):
 
 
 class Bun(Package):
-    """ tested on 11/11/2023 """
-    def __init__(self, version="v1.0.11"):
+    """ tested on 11/19/2023 """
+    def __init__(self, version="v1.0.13"):
         self.version = "v" + version.lower().strip("v")
         super().__init__(f"bun_{self.version}", Path("bun"), add_path=".")
         self.drill_singleton_dirs = True
@@ -106,3 +106,4 @@ class Bun(Package):
         archive_type = "zip"
         archive_url = f"https://github.com/oven-sh/bun/releases/download/bun-{self.version}/bun-linux-x64.zip"
         self.download_extract(archive_url, archive_type)
+        self.path.joinpath("bunx").symlink_to(self.artifact)
