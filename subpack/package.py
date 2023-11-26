@@ -115,6 +115,8 @@ class Package:
             return "tar -xf {0} -C {1}"
         elif larchive.endswith(".tar.bz2"):
             return "tar -xf {0} -C {1}"
+        elif larchive.endswith(".tgz"):
+            return "tar -xf {0} -C {1}"
 
         raise Exception(f"unsupported archive type: {archive}")
 

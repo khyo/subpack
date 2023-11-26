@@ -107,3 +107,19 @@ class Bun(Package):
         archive_url = f"https://github.com/oven-sh/bun/releases/download/bun-{self.version}/bun-linux-x64.zip"
         self.download_extract(archive_url, archive_type)
         self.path.joinpath("bunx").symlink_to(self.artifact)
+
+
+class EsBuild(Package):
+    """ tested on 11/26/2023 """
+    def __init__(self, version="0.19.4"):
+        self.version = version.lower().strip("v")
+        super().__init__(f"esbuild_{self.version}", Path("package", "bin", "esbuild"))
+        self.drill_singleton_dirs = True
+        
+    def install(self):
+        archive_type = "tgz"
+        platform_name = "linux" if self.IS_POSIX else "win32"
+        # https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.19.4.tgz
+        # https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.19.4.tgz
+        archive_url = f"https://registry.npmjs.org/@esbuild/{platform_name}-x64/-/{platform_name}-x64-{self.version}.tgz"
+        self.download_extract(archive_url, archive_type)
