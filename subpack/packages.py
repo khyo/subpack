@@ -97,7 +97,7 @@ class StLink(Package):
 
 class Bun(Package):
     """ tested on 11/19/2023 """
-    def __init__(self, version="v1.0.13"):
+    def __init__(self, version="v1.0.17"):
         self.version = "v" + version.lower().strip("v")
         super().__init__(f"bun_{self.version}", Path("bun"), add_path=".")
         self.drill_singleton_dirs = True
@@ -107,6 +107,20 @@ class Bun(Package):
         archive_url = f"https://github.com/oven-sh/bun/releases/download/bun-{self.version}/bun-linux-x64.zip"
         self.download_extract(archive_url, archive_type)
         self.path.joinpath("bunx").symlink_to(self.artifact)
+
+
+class Node(Package):
+    """ tested on 12/14/2023 """
+    def __init__(self, version="20.10.0"):
+        self.version = version.lower().strip("v")
+        super().__init__(f"node_{self.version}", Path("bin", "node"), add_path="bin")
+        self.drill_singleton_dirs = True
+        
+    def install(self):
+        archive_type = "tar.xz"
+        archive_url = f"https://nodejs.org/dist/v{self.version}/node-v{self.version}-linux-x64.tar.xz"
+        self.download_extract(archive_url, archive_type)
+        # self.path.joinpath("bunx").symlink_to(self.artifact)
 
 
 class EsBuild(Package):
