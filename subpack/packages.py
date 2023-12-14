@@ -111,7 +111,7 @@ class Bun(Package):
 
 class Node(Package):
     """ tested on 12/14/2023 """
-    def __init__(self, version="20.10.0"):
+    def __init__(self, version="18.12.0"):
         self.version = version.lower().strip("v")
         super().__init__(f"node_{self.version}", Path("bin", "node"), add_path="bin")
         self.drill_singleton_dirs = True
