@@ -25,9 +25,9 @@ class Electron(Package):
 
 class Zig(Package):
     """ tested on 11/11/2023 """
-    def __init__(self, version="0.12.0-dev.1297+a9e66ed73"):
+    def __init__(self, version="0.12.0-dev.1297+a9e66ed73", add_path: Optional[Path | str] ="."):
         self.version = version
-        super().__init__(f'zig-{self.version.split("+")[0]}', "zig" + self.EXE, add_path=".")
+        super().__init__(f'zig-{self.version.split("+")[0]}', "zig" + self.EXE, add_path)
         self.drill_singleton_dirs = True
     
     def install(self):
