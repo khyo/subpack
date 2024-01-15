@@ -96,8 +96,8 @@ class StLink(Package):
 
 
 class Bun(Package):
-    """ tested on 11/19/2023 """
-    def __init__(self, version="v1.0.17"):
+    """ tested on 1/15/2024 """
+    def __init__(self, version="v1.0.22"):
         self.version = "v" + version.lower().strip("v")
         super().__init__(f"bun_{self.version}", Path("bun"), add_path=".")
         self.drill_singleton_dirs = True
