@@ -82,9 +82,9 @@ class TiPruNone(Package):
 
 
 class StLink(Package):
-    """ tested on 11/11/2023 """
+    """ tested on 02/02/2024 """
     def __init__(self):
-        self.version = "v1.0.0"
+        self.version = "v1.1.0"
         super().__init__(f"stlink_{self.version}", Path("STM32CubeProgrammer", "bin", "STM32_Programmer_CLI"))
         self.drill_singleton_dirs = True
         
