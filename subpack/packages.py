@@ -106,7 +106,7 @@ class Bun(Package):
         archive_type = "zip"
         archive_url = f"https://github.com/oven-sh/bun/releases/download/bun-{self.version}/bun-linux-x64.zip"
         self.download_extract(archive_url, archive_type)
-        self.path.joinpath("bunx").symlink_to(self.artifact)
+        self.path.joinpath("bunx").symlink_to(self.artifact.resolve())
 
 
 class Node(Package):

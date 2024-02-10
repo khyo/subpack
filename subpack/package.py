@@ -21,7 +21,7 @@ class Package:
 
     EXE = "" if IS_POSIX else ".exe"
     
-    SUBPACK_DIR = Path.home().joinpath(".config/subpack" if IS_POSIX else "AppData\\Roaming\\subpack")
+    SUBPACK_DIR = Path.home().joinpath(".config/subpack" if IS_POSIX else "AppData\\Roaming\\subpack").resolve()
     """ Path to the common assets managed by subpack """
 
     def _init_env(self) -> Path:
