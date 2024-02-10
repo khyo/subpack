@@ -65,9 +65,9 @@ class Package:
 
         symbo = self.SUBPACK_DIR.joinpath(self.__class__.__name__.lower())
         symbo.unlink(missing_ok=True)
-        sh("ln -sf {0} {1}".format(self.path.absolute(), symbo.absolute()))
+        sh("ln -sf {0} {1}".format(self.path.absolute().resolve(), symbo.absolute().resolve()))
         
-        env.append(f'export PATH=$PATH:"{symbo.joinpath(self.add_path).absolute()}"  {tag}\n')
+        env.append(f'export PATH=$PATH:"{symbo.joinpath(self.add_path).absolute().resolve()}"  {tag}\n')
 
         with open(envfile, mode="w") as f:
             f.writelines(env)
@@ -167,4 +167,4 @@ class Package:
             listing = os.listdir(p)
 
     def remove(self):
-        sh(f"rm -rf {self.path.absolute()}")
+        sh(f"rm -rf {self.path.absolute().resolve()}")
