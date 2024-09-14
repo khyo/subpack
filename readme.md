@@ -6,9 +6,9 @@ A user-land package mananger for build tools and system dependencies.
 ## Example Installation
 
 ```bash
-python3.12 -mvenv .venv
-source .venv/bin/activate
-pip install https://github.com/khyo/subpack
+git clone https://github.com/khyo/subpack
+python3 -m pip install -e subpack
+# as an editable, you can get upates via `subpack update`
 ```
 
 ## Example Usage

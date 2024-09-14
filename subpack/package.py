@@ -21,7 +21,7 @@ class Package:
 
     EXE = "" if IS_POSIX else ".exe"
     
-    SUBPACK_DIR = Path.home().joinpath(".config/subpack" if IS_POSIX else "AppData\\Roaming\\subpack")
+    SUBPACK_DIR = Path.home().joinpath(".config/subpack" if IS_POSIX else "AppData\\Roaming\\subpack").resolve()
     """ Path to the common assets managed by subpack """
 
     def _init_env(self) -> Path:
@@ -65,9 +65,9 @@ class Package:
 
         symbo = self.SUBPACK_DIR.joinpath(self.__class__.__name__.lower())
         symbo.unlink(missing_ok=True)
-        sh("ln -sf {0} {1}".format(self.path.absolute(), symbo.absolute()))
+        sh("ln -sf {0} {1}".format(self.path.absolute().resolve(), symbo.absolute().resolve()))
         
-        env.append(f'export PATH=$PATH:"{symbo.joinpath(self.add_path).absolute()}"  {tag}')
+        env.append(f'export PATH=$PATH:"{symbo.joinpath(self.add_path).absolute()}"  {tag}\n')
 
         with open(envfile, mode="w") as f:
             f.writelines(env)
@@ -113,6 +113,14 @@ class Package:
             return "tar -xf {0} -C {1}"
         elif larchive.endswith(".tar.gz"):
             return "tar -xf {0} -C {1}"
+        elif larchive.endswith(".tar.bz2"):
+            return "tar -xf {0} -C {1}"
+        elif larchive.endswith(".tar.bz2"):
+            return "tar -xf {0} -C {1}"
+        elif larchive.endswith(".bz2"):
+            return "mkdir -p {1} && mv {0} {1} && bzip2 -d {1}/*"
+        elif larchive.endswith(".tgz"):
+            return "tar -xf {0} -C {1}"
 
         raise Exception(f"unsupported archive type: {archive}")
 
@@ -153,6 +161,8 @@ class Package:
         listing = os.listdir(p)
         while len(listing) == 1:
             singleton = listing[0]
+            if not os.path.isdir(p.joinpath(singleton)):
+                break
             self.print(f"drilling: {singleton}")
             for f in os.listdir(p.joinpath(singleton)):
                 print(f"\tmv {f} ..")
@@ -161,4 +171,4 @@ class Package:
             listing = os.listdir(p)
 
     def remove(self):
-        sh(f"rm -rf {self.path.absolute()}")
+        sh(f"rm -rf {self.path.absolute().resolve()}")
