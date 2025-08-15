@@ -40,18 +40,19 @@ class Zig(Package):
 
 
 class GccArmNone(Package):
-    """ tested on 11/11/2023 """
+    """ tested on 04/01/2025 """
     def __init__(self):
-        self.version = "13.2"
+        self.version = "14.2"
         self.prefix = "arm-none-eabi-"
         super().__init__(f"gcc-arm-none-eabi_{self.version}", Path("bin", self.prefix+"gcc"), add_path="bin")
         self.drill_singleton_dirs = True
         
     def install(self):
         archive_type = "tar.xz"
-        archive_url = f"https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz?rev=e434b9ea4afc4ed7998329566b764309&hash=688C370BF08399033CA9DE3C1CC8CF8E31D8C441"
+        archive_url = f"https://developer.arm.com/-/media/Files/downloads/gnu/14.2.rel1/binrel/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi.tar.xz"
+        # archive_url = f"https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz?rev=e434b9ea4afc4ed7998329566b764309&hash=688C370BF08399033CA9DE3C1CC8CF8E31D8C441"
         self.download_extract(archive_url, archive_type)
-        sh("sudo add-apt-repository -y ppa:deadsnakes/ppa && sudo apt -y install python3.8")
+        # sh("sudo add-apt-repository -y ppa:deadsnakes/ppa && sudo apt -y install python3.8")
 
 
 class GccArmLinux(Package):
@@ -83,9 +84,9 @@ class TiPruNone(Package):
 
 
 class StLink(Package):
-    """ tested on 02/02/2024 """
+    """ tested on 04/01/2025 """
     def __init__(self):
-        self.version = "v1.1.0"
+        self.version = "v1.2.0"
         super().__init__(f"stlink_{self.version}", Path("STM32CubeProgrammer", "bin", "STM32_Programmer_CLI"))
         self.drill_singleton_dirs = True
         
@@ -98,7 +99,7 @@ class StLink(Package):
 
 class Bun(Package):
     """ tested on 11/14/2024 """
-    def __init__(self, version="v1.2.2"):
+    def __init__(self, version="v1.2.20"):
         self.version = "v" + version.lower().strip("v")
         super().__init__(f"bun_{self.version}", Path("bun"), add_path=".")
         self.drill_singleton_dirs = True
