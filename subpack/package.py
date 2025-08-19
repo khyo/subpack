@@ -151,7 +151,7 @@ class Package:
 
     def download_extract(self, archive_url: str, archive_type: str, extract_dir: Optional[Path]=None, delete_src=True):
         ark_file = str(self.mktmp().joinpath(f"{self.name}.{archive_type}"))
-        self.print(f"downloading {self.name}...")
+        self.print(f"downloading {self.name} from {archive_url}...")
         self.download(archive_url, ark_file)
         
         self.print("extracting archive...")

@@ -24,9 +24,9 @@ class Electron(Package):
         
 
 class Zig(Package):
-    """ tested on 3/25/2025 """
+    """ tested on 6/30/2025 """
     VERSION_2023_11_11 = "0.12.0-dev.1297+a9e66ed73"
-    def __init__(self, version="0.14.0", add_path: Optional[Path | str] ="."):
+    def __init__(self, version="0.14.1", add_path: Optional[Path | str] ="."):
         self.version = version
         super().__init__(f'zig-{self.version.split("+")[0]}', "zig" + self.EXE, add_path)
         self.drill_singleton_dirs = True
@@ -35,7 +35,7 @@ class Zig(Package):
         arch = "x86_64"
         os_name = "linux" if self.IS_POSIX else "windows"
         archive_type = "tar.xz" if self.IS_POSIX else "zip"
-        archive_url = f"https://ziglang.org/download/{self.version}/zig-{os_name}-{arch}-{self.version}.{archive_type}"
+        archive_url = f"https://ziglang.org/download/{self.version}/zig-{arch}-{os_name}-{self.version}.{archive_type}"
         self.download_extract(archive_url, archive_type)
 
 
