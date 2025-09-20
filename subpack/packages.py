@@ -26,7 +26,7 @@ class Electron(Package):
 class Zig(Package):
     """ tested on 6/30/2025 """
     VERSION_2023_11_11 = "0.12.0-dev.1297+a9e66ed73"
-    def __init__(self, version="0.14.1", add_path: Optional[Path | str] ="."):
+    def __init__(self, version="0.15.1", add_path: Optional[Path | str] ="."):
         self.version = version
         super().__init__(f'zig-{self.version.split("+")[0]}', "zig" + self.EXE, add_path)
         self.drill_singleton_dirs = True
